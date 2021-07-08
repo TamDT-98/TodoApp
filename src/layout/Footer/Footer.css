@@ -1,0 +1,20 @@
+.Footer {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.Footer ul {
+  margin: 20px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.Footer ul li {
+  list-style: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  font-weight: 500;
+}
