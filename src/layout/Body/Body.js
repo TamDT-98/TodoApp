@@ -4,9 +4,9 @@ import "./Body.css";
 import TodoItems from "../../components/TodoItems/TodoItems";
 
 const TodoList = [
-  { content: "An com", isDone: true },
-  { content: "Da bong" },
-  { content: "Chay bo" },
+  { content: "Ăn Cơm", isDone: true },
+  { content: "Làm bài tập", isDone: false },
+  { content: "đá bóng", isDone: false },
 ];
 
 const Body = () => {
@@ -54,6 +54,14 @@ const Body = () => {
     }
   };
 
+  const deleteItemHandler = (item) => {
+    const index = listTask.indexOf(item);
+
+    listTask.splice(index, 1);
+
+    setListTask([...listTask.slice(0, index), ...listTask.slice(index)]);
+  };
+
   return (
     <div className="Body">
       <div className="Input">
@@ -72,6 +80,7 @@ const Body = () => {
           content={item.content}
           isDone={item.isDone}
           clickDoneButton={() => onItemClicked(item)}
+          clickDeleteButton={() => deleteItemHandler(item)}
         />
       ))}
     </div>

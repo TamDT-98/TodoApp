@@ -21,7 +21,10 @@ function TodoItems(props) {
               onClick={props.clickDoneButton}
             ></i>
           )}
-          <i className="fas fa-times-circle"></i>
+          <i
+            className="fas fa-times-circle"
+            onClick={props.clickDeleteButton}
+          ></i>
         </span>
       </div>
     </div>

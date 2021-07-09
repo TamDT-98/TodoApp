@@ -2,16 +2,27 @@ import React from "react";
 
 import "./Footer.css";
 
-function Footer() {
+function Footer(props) {
+  // let className = "";
+
+  // const clicked = () => {
+  //   if () {
+  //     className += " active";
+  //   } else {
+  //     className += "";
+  //   }
+  // };
+
   return (
     <div className="Footer">
-      <ul>
-        <li>{"<"}</li>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>{">"}</li>
-      </ul>
+      <div className="amount-item">
+        <p>0 item left</p>
+      </div>
+      <div className="select-item">
+        <p>All</p>
+        <p>Active</p>
+        <p>Completed</p>
+      </div>
     </div>
   );
 }
