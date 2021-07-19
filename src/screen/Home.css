@@ -13,4 +13,5 @@ main {
   border: 4px solid #000;
   margin: 40px auto;
   border-radius: 10px;
+  overflow: hidden;
 }
