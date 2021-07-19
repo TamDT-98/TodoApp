@@ -3,39 +3,32 @@ import * as React from "react";
 import "./Body.css";
 import TodoItems from "../../components/TodoItems/TodoItems";
 
-const TodoList = [
-  { content: "Ăn Cơm", isDone: true },
-  { content: "Làm bài tập", isDone: false },
-  { content: "đá bóng", isDone: false },
-];
+const LIST_TASK = "listTask";
 
 const Body = () => {
   let [valueInput, setValueInput] = React.useState("");
-  const [listTask, setListTask] = React.useState(TodoList);
+  const [listTask, setListTask] = React.useState([]);
   const [newItem, setNewItem] = React.useState("");
+  const [isInput, setIsInput] = React.useState(false);
 
-  const addTask = () => {
-    if (!valueInput) {
-      return;
+  React.useEffect(() => {
+    const list = localStorage.getItem(LIST_TASK);
+    if (list) {
+      setListTask(JSON.parse(list));
     }
-    valueInput = valueInput.trim();
-    if (!valueInput) {
-      return;
-    }
-
-    setListTask([{ content: valueInput, isDone: false }, ...listTask]);
-    setValueInput([newItem]);
-  };
+  }, []);
 
   const onItemClicked = (item) => {
     const isDone = item.isDone;
     const index = listTask.indexOf(item);
 
-    setListTask([
+    const list = [
       ...listTask.slice(0, index),
       { ...item, isDone: !isDone },
       ...listTask.slice(index + 1),
-    ]);
+    ];
+    localStorage.setItem(LIST_TASK, JSON.stringify(list));
+    setListTask(list);
   };
 
   const onKeyUp = (event) => {
@@ -49,7 +42,9 @@ const Body = () => {
         return;
       }
 
-      setListTask([{ content: valueInput, isDone: false }, ...listTask]);
+      const list = [{ content: valueInput, isDone: false }, ...listTask];
+      localStorage.setItem(LIST_TASK, JSON.stringify(list));
+      setListTask(list);
       setValueInput([newItem]);
     }
   };
@@ -58,8 +53,31 @@ const Body = () => {
     const index = listTask.indexOf(item);
 
     listTask.splice(index, 1);
+    const list = [...listTask.slice(0, index), ...listTask.slice(index)];
+    localStorage.setItem(LIST_TASK, JSON.stringify(list));
+    setListTask(list);
+  };
 
-    setListTask([...listTask.slice(0, index), ...listTask.slice(index)]);
+  const handleOnClick = () => {
+    console.log("handleOnClick");
+    if (valueInput.trim()) {
+      const list = [{ content: valueInput, isDone: false }, ...listTask];
+      localStorage.setItem(LIST_TASK, JSON.stringify(list));
+      setListTask(list);
+      setValueInput([newItem]);
+    }
+  };
+
+  const saveItemHandler = (item, e) => {
+    const index = listTask.indexOf(item);
+    const list = listTask;
+
+    // list.splice(index, 1, {
+    //   content: inputValueEdit,
+    //   isDone: listTask[index].isDone,
+    // });
+    // localStorage.setItem(LIST_TASK, JSON.stringify(list));
+    // setListTask(list);
   };
 
   return (
@@ -72,17 +90,22 @@ const Body = () => {
           value={valueInput}
           onKeyUp={onKeyUp}
         />
-        <i className="fas fa-plus-circle" onClick={addTask}></i>
+        <i className="fas fa-plus-circle" onClick={handleOnClick}></i>
       </div>
-      {listTask.map((item, index) => (
-        <TodoItems
-          key={index}
-          content={item.content}
-          isDone={item.isDone}
-          clickDoneButton={() => onItemClicked(item)}
-          clickDeleteButton={() => deleteItemHandler(item)}
-        />
-      ))}
+      {listTask.length ? (
+        listTask.map((item, index) => (
+          <TodoItems
+            key={index}
+            content={item.content}
+            isDone={item.isDone}
+            clickDoneButton={() => onItemClicked(item)}
+            clickDeleteButton={() => deleteItemHandler(item)}
+            saveItem={() => saveItemHandler(item)}
+          />
+        ))
+      ) : (
+        <div className="Nothing">Nothing Here!!!</div>
+      )}
     </div>
   );
 };

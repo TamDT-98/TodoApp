@@ -16,7 +16,7 @@ function Footer(props) {
   return (
     <div className="Footer">
       <div className="amount-item">
-        <p>0 item left</p>
+        <p>{props.amountItem} item left</p>
       </div>
       <div className="select-item">
         <p>All</p>

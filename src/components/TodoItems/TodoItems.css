@@ -16,6 +16,7 @@
   border-bottom: 2px solid#000;
   font-size: 1.5em;
   font-weight: 600;
+  position: relative;
 }
 
 .TodoItems p {
@@ -42,4 +43,77 @@
 
 .Button-Done {
   opacity: 0.5;
+}
+
+.TodoItems-content p,
+.TodoItems-content span {
+  position: relative;
+}
+
+.InputContent {
+  width: 65%;
+  border: none;
+  font-size: 1.1em;
+  text-transform: capitalize;
+  outline: none;
+  border-bottom: 2px solid#000;
+  padding: 0 10px 0 10px;
+  font-weight: 600;
+  animation: borderBottom 1s ease-in-out;
+}
+
+.Edit-content {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  padding: 10px;
+  border-bottom: 2px solid#000;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.Edit-content input,
+.Edit-content span {
+  position: relative;
+}
+
+.slide-in {
+  animation: in 1s ease-in-out;
+}
+
+.slide-out > p,
+.slide-out > span {
+  animation: out 1s ease-in-out;
+}
+
+@keyframes in {
+  from {
+    left: -50%;
+    opacity: 0;
+  }
+  to {
+    left: 0%;
+    opacity: 1;
+  }
+}
+
+@keyframes out {
+  from {
+    right: -50%;
+    opacity: 0;
+  }
+  to {
+    right: 0%;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1000px) {
+  .TodoItems p {
+    width: 50%;
+  }
+
+  .InputContent {
+    width: 50%;
+  }
 }
